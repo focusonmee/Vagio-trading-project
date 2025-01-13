@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   Activity,
   Wallet,
+  Laugh,
   DollarSign,
   LogOut,
   User,
@@ -25,7 +26,7 @@ const menu = [
   {
     name: "Activity",
     path: "/activity",
-    icon: <Activity className="h-6 w-6" />,
+    icon: <Laugh className="h-6 w-6" />,
   },
   { name: "Wallet", path: "/wallet", icon: <Wallet className="h-6 w-6" /> },
   {
