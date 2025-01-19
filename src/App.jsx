@@ -17,6 +17,7 @@ function App() {
   return (
     <>
       <Navbar />
+
       <Routes>
         {/* Wrap all <Route> components inside this <Routes> */}
         <Route path="/" element={<Home />} />
