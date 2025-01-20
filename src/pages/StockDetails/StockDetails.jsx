@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import TradingForm from "./TradingForm";
+import StockChart from "../Home/StockChart";
 function StockDetails() {
   return (
     <div className="p-5 mt-5">
@@ -67,6 +68,9 @@ function StockDetails() {
             </DialogContent>
           </Dialog>
         </div>
+      </div>
+      <div className="mt-10">
+        <StockChart></StockChart>
       </div>
     </div>
   );

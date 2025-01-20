@@ -12,26 +12,30 @@ import WatchList from "./pages/WatchList/WatchList";
 import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/NotFound/NotFound";
 import SearchCoin from "./pages/Search/SearchCoin";
+import Auth from "./pages/Auth/Auth";
 
 function App() {
   return (
     <>
-      <Navbar />
-
-      <Routes>
-        {/* Wrap all <Route> components inside this <Routes> */}
-        <Route path="/" element={<Home />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/activity" element={<Activity />} />
-        <Route path="/wallet" element={<Wallet />} />
-        <Route path="/withdraw" element={<WithDraw />} />
-        <Route path="/payment-details" element={<PaymentDetail />} />
-        <Route path="/market/:id" element={<StockDetails />} />
-        <Route path="/watchlist" element={<WatchList />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/search" element={<SearchCoin />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Auth />
+      {false && (
+        <div>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/activity" element={<Activity />} />
+            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/withdraw" element={<WithDraw />} />
+            <Route path="/payment-details" element={<PaymentDetail />} />
+            <Route path="/market/:id" element={<StockDetails />} />
+            <Route path="/watchlist" element={<WatchList />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/search" element={<SearchCoin />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      )}
     </>
   );
 }
