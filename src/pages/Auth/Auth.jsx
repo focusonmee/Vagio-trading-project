@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
 import "./Auth.css";
 import ForgotForm from "./ForgotForm";
 import SignInForm from "./SignInForm";
-import SignupForm from "./SignupForm";
+import SignUpForm from "./SignUpForm";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -33,13 +32,13 @@ const Auth = () => {
             {/* Hiển thị form dựa vào route */}
             {location.pathname === "/signin" && <SignInForm />}
             {location.pathname === "/forgotpassword" && <ForgotForm />}
-            {location.pathname === "/signup" && <SignupForm />}
+            {location.pathname === "/signup" && <SignUpForm />}
 
             {/* Nút chuyển đổi giữa Sign In và Sign Up */}
             {location.pathname === "/signin" && (
               <div className="flex items-center justify-center mt-10 space-x-4">
                 <Button onClick={() => navigate("/signup")} variant="link">
-                  Don't have an account? Sign Up
+                  Don&apos;t have an account? Sign Up
                 </Button>
               </div>
             )}
