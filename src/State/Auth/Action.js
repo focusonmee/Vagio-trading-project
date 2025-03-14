@@ -17,8 +17,9 @@ export const clearError = () => ({
 export const register = (userData) => async (dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
 
-  const registerUrl = "http://localhost:8080/api/v1/signup";
-
+  // const registerUrl = "http://localhost:8080/api/v1/signup";
+  const registerUrl =
+    "https://vagio-trading-project-be-production.up.railway.app/api/v1/signup";
   try {
     const response = await axios.post(registerUrl, userData);
     const user = response.data;
@@ -45,7 +46,8 @@ export const register = (userData) => async (dispatch) => {
 
 export const login = (userData) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
-  const loginUrl = "http://localhost:8080/api/v1/login";
+  const loginUrl =
+    "https://vagio-trading-project-be-production.up.railway.app/api/v1/login";
   try {
     const response = await axios.post(loginUrl, userData);
     const jwt = response.data?.result?.jwt;
@@ -65,7 +67,8 @@ export const login = (userData) => async (dispatch) => {
 
 export const getUser = (jwt) => async (dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
-  const getUserUrl = "http://localhost:8080/api/v1/users/profile";
+  const getUserUrl =
+    "https://vagio-trading-project-be-production.up.railway.app/api/v1/users/profile";
   try {
     const response = await axios.get(getUserUrl, {
       headers: {
