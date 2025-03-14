@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./pages/Home/Navbar/Navbar";
 import Home from "./pages/Home/Home";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Portfolio from "./pages/Portfolio/Portfolio";
 import Activity from "./pages/Activity/Activity";
 import Wallet from "./pages/Wallet/Wallet";
@@ -13,16 +13,42 @@ import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/NotFound/NotFound";
 import SearchCoin from "./pages/Search/SearchCoin";
 import Auth from "./pages/Auth/Auth";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "./State/Auth/Action";
 
 function App() {
+  const { auth } = useSelector((store) => store);
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // Thêm useNavigate để điều hướng
+
+  console.log(auth);
+
+  useEffect(() => {
+    dispatch(getUser(auth.jwt || localStorage.getItem("jwt")));
+  }, [auth.jwt, dispatch]);
+
+  // useEffect(() => {
+  //   console.log("Auth state:", auth);
+  //   if (auth.user?.result) {
+  //     console.log("User found! Navigating to /home...");
+  //     navigate("/home");
+  //   }
+  // }, [auth.user, navigate]);
+  useEffect(() => {
+    console.log("Auth state changed:", auth);
+    if (auth.user?.result && window.location.pathname === "/signin") {
+      navigate("/home");
+    }
+  }, [auth.user, navigate]);
+
   return (
     <>
-      <Auth />
-      {false && (
+      {auth.user ? (
         <div>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/activity" element={<Activity />} />
             <Route path="/wallet" element={<Wallet />} />
@@ -35,6 +61,8 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
+      ) : (
+        <Auth />
       )}
     </>
   );

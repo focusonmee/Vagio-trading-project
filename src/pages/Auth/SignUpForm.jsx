@@ -1,31 +1,41 @@
-import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { register as registerUser, clearError } from "../../State/Auth/Action";
+
 import {
   Form,
   FormField,
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage,
-} from "@/components/ui/form"; // Cần thay đổi tùy thuộc vào cấu trúc dự án
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog"; // Đảm bảo rằng bạn đã nhập đúng các thành phần
 
 function SignUpForm() {
-  // Sử dụng hook form
+  const dispatch = useDispatch();
+
   const form = useForm({
     defaultValues: {
-      accountHolder: "",
-      ifsc: "",
-      accountNumber: "",
-      confirmAccountNumber: "",
-      bankName: "",
+      fullName: "",
+      email: "",
+      password: "",
     },
+    mode: "onBlur",
   });
 
-  // Xử lý submit form
+  const { error } = useSelector((state) => ({
+    error: state.auth?.error ?? "",
+  }));
+
+  // ✅ Reset lỗi khi mở trang
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
   const onSubmit = (data) => {
+    dispatch(registerUser(data));
     console.log("Form Submitted: ", data);
   };
 
@@ -33,10 +43,9 @@ function SignUpForm() {
     <div className="px-10 py-2">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {/* Account Holder Name */}
           <FormField
             control={form.control}
-            name="accountHolder"
+            name="fullName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
@@ -45,17 +54,27 @@ function SignUpForm() {
                     className="border w-full border-gray-700 p-5"
                     placeholder="Vagio"
                     {...field}
+                    {...form.register("fullName", {
+                      required: "Tên không được để trống",
+                      minLength: {
+                        value: 3,
+                        message: "Tên phải có ít nhất 3 ký tự",
+                      },
+                    })}
                   />
                 </FormControl>
-                <FormMessage />
+                {form.formState.errors.fullName && (
+                  <p className="text-red-500">
+                    {form.formState.errors.fullName.message}
+                  </p>
+                )}
               </FormItem>
             )}
           />
 
-          {/* Confirm Account Number */}
           <FormField
             control={form.control}
-            name="confirmAccountNumber"
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
@@ -64,38 +83,67 @@ function SignUpForm() {
                     className="border w-full border-gray-700 p-5"
                     placeholder="vagio@gmail.com"
                     {...field}
+                    {...form.register("email", {
+                      required: "Email không được để trống",
+                      pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "Email không hợp lệ",
+                      },
+                    })}
                   />
                 </FormControl>
-                <FormMessage />
+
+                {form.formState.errors.email && (
+                  <p className="text-red-500">
+                    {form.formState.errors.email.message}
+                  </p>
+                )}
               </FormItem>
             )}
           />
-          {/* Bank Name */}
+
           <FormField
             control={form.control}
-            name="bankName"
+            name="password"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
+                    type="password"
                     className="border w-full border-gray-700 p-5"
                     placeholder="Password"
                     {...field}
+                    {...form.register("password", {
+                      required: "Mật khẩu không được để trống",
+                      minLength: {
+                        value: 6,
+                        message: "Mật khẩu phải có ít nhất 6 ký tự",
+                      },
+                    })}
                   />
                 </FormControl>
-                <FormMessage />
+                {form.formState.errors.password && (
+                  <p className="text-red-500">
+                    {form.formState.errors.password.message}
+                  </p>
+                )}
               </FormItem>
             )}
           />
 
-          {/* Submit Button */}
           <Button type="submit" className="w-full">
             Register
           </Button>
+
+          {/* ✅ Chỉ hiển thị lỗi khi có nội dung */}
+          {error && error.trim() !== "" && (
+            <p className="text-red-500 mt-2">{error}</p>
+          )}
         </form>
       </Form>
     </div>
   );
 }
+
 export default SignUpForm;

@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Menu, Search } from "lucide-react";
-import { useState } from "react";
 
 import {
   Sheet,
@@ -11,13 +10,12 @@ import {
 } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import Sidebar from "./Sidebar";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
+  const { auth } = useSelector((store) => store);
   return (
-    <div className={`${isDarkMode ? "dark" : ""}`}>
-      {/* Navbar */}
+    <div>
       <div
         className="px-2 py-3 border-b z-50 bg-background sticky
       top-0 left-0 right-0 flex justify-between items-center dark:bg-gray-900"
@@ -78,7 +76,7 @@ const Navbar = () => {
               className="w-10 h-10 rounded-full object-cover"
             />
             <AvatarFallback className="bg-gray-300 text-black rounded-full w-10 h-10 flex justify-center items-center font-semibold">
-              Z
+              {auth.user?.result?.fullName?.[0]?.toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </div>

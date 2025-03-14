@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { login } from "../../State/Auth/Action";
 import {
   Form,
   FormField,
@@ -6,12 +9,14 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "@/components/ui/form"; // Thay đổi tùy thuộc vào cấu trúc dự án
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 function SignInForm() {
-  // Sử dụng hook form
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ Khởi tạo navigate
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -20,8 +25,7 @@ function SignInForm() {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
-    // Xử lý logic đăng nhập
+    dispatch(login(data, navigate)); // ✅ Bây giờ navigate đã được định nghĩa
   };
 
   return (

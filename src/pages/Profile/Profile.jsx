@@ -18,8 +18,10 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import AccountVerificationForm from "./AccountVerificationForm";
+import { useSelector } from "react-redux";
 
 function Profile() {
+  const { auth } = useSelector((store) => store);
   const handleEnableTwoStepVerification = (data) => {
     console.log("con cak");
   };
@@ -33,7 +35,7 @@ function Profile() {
           <CardContent>
             <div className="lg:flex gap-32">
               <div className="space-y-7">
-                <div className="flex">
+                {/* <div className="flex">
                   <p className="w-[9rem]">Email : </p>
                   <p className="text-gray-500">sunny.huytran@gmail.com</p>
                 </div>
@@ -53,30 +55,30 @@ function Profile() {
                 <div className="flex">
                   <p className="w-[9rem]">Email : </p>
                   <p className="text-gray-500">sunny.huytran@gmail.com</p>
-                </div>
+                </div> */}
               </div>
               <div className="space-y-7">
                 <div className="flex">
                   <p className="w-[9rem]">Email : </p>
-                  <p className="text-gray-500">sunny.huytran@gmail.com</p>
+                  <p className="text-gray-500">{auth.user?.result?.email}</p>
                 </div>
                 <div className="flex">
                   <p className="w-[9rem]">Full Name : </p>
-                  <p className="text-gray-500">Vagio</p>
+                  <p className="text-gray-500">{auth.user?.result?.fullName}</p>
                 </div>
 
-                <div className="flex">
+                {/* <div className="flex">
                   <p className="w-[9rem]">Date Of Birth : </p>
-                  <p className="text-gray-500">22/03/2006</p>
-                </div>
-                <div className="flex">
+                  <p className="text-gray-500"></p>
+                </div> */}
+                {/* <div className="flex">
                   <p className="w-[9rem]">National : </p>
                   <p className="text-gray-500">VietNam</p>
-                </div>
-                <div className="flex">
+                </div> */}
+                {/* <div className="flex">
                   <p className="w-[9rem]">Email : </p>
                   <p className="text-gray-500">sunny.huytran@gmail.com</p>
-                </div>
+                </div> */}
               </div>
             </div>
           </CardContent>
