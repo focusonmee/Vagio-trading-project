@@ -30,12 +30,12 @@ const Auth = () => {
 
           <section className="w-full px-6">
             {/* Hiển thị form dựa vào route */}
-            {location.pathname === "/signin" && <SignInForm />}
+            {location.pathname === "/" && <SignInForm />}
             {location.pathname === "/forgotpassword" && <ForgotForm />}
             {location.pathname === "/signup" && <SignUpForm />}
 
             {/* Nút chuyển đổi giữa Sign In và Sign Up */}
-            {location.pathname === "/signin" && (
+            {location.pathname === "/" && (
               <div className="flex items-center justify-center mt-10 space-x-4">
                 <Button onClick={() => navigate("/signup")} variant="link">
                   Don&apos;t have an account? Sign Up
@@ -44,14 +44,14 @@ const Auth = () => {
             )}
             {location.pathname === "/signup" && (
               <div className="mt-2 flex items-center justify-center mt-10 space-x-4">
-                <Button onClick={() => navigate("/signin")} variant="link">
+                <Button onClick={() => navigate("/")} variant="link">
                   Already have an account? Sign In
                 </Button>
               </div>
             )}
 
             {/* Nút Forgot Password */}
-            {location.pathname === "/signin" && (
+            {location.pathname === "/" && (
               <div className="flex items-center justify-center mt-10 space-x-4">
                 <Button
                   className="w-full py-5 bg-orange-500"
@@ -64,7 +64,7 @@ const Auth = () => {
             )}
             {location.pathname === "/forgotpassword" && (
               <div className="flex items-center justify-center mt-10 space-x-4">
-                <Button onClick={() => navigate("/signin")} variant="link">
+                <Button onClick={() => navigate("/")} variant="link">
                   Back to Login
                 </Button>
               </div>
